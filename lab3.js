@@ -37,10 +37,15 @@ const analyticsData = [
    * @returns {string} "Good" or "Low"
    */
   const getEngagementLevel = (user) => {
+    if (user.avgSessionDuration >= 200) {
+      return "Good";
+    } else {
+      return "Low";
+    }
+  };
     // TODO: use if/else or ternary operator
     // Hint: Check if user.avgSessionDuration >= 200
-    return ""; // Replace with your implementation
-  };
+    // Replace with your implementation
   
   /**
    * 2. For Loop
@@ -49,10 +54,20 @@ const analyticsData = [
    * @returns {string} Name of user with longest session
    */
   const findLongestSessionUser = (data) => {
+    let maxDuration = -Infinity;
+    let longestUser = "";
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].avgSessionDuration > maxDuration) {
+        maxDuration = data[i].avgSessionDuration;
+        longestUser = data[i].name;
+      }
+    }
+    return longestUser;
+  };
     // TODO: use for loop
     // Hint: Keep track of max duration and corresponding user name
-    return ""; // Replace with your implementation
-  };
+    // Replace with your implementation
+ 
 
 
   
@@ -63,11 +78,12 @@ const analyticsData = [
    * @returns {Array} Array of formatted strings like "Alice: 3 sessions"
    */
   const formatSessions = (data) => {
+    return data.map(user => `${user.name}: ${user.totalSessions} sessions`);
+  };
     // TODO: use map
     // Hint: Use template literal `${user.name}: ${user.totalSessions} sessions`
-    return []; // Replace with your implementation
-    
-  };
+    // Replace with your implementation
+   
   
   /**
    * 4. Filter
@@ -76,10 +92,13 @@ const analyticsData = [
    * @returns {Array} Array of active user names
    */
   const getActiveUsers = (data) => {
+    return data
+      .filter(user => user.totalSessions >= 5)
+      .map(user => user.name);
+  };
     // TODO: use filter + map
     // Hint: First filter users with totalSessions >= 5, then map to get names
-    return []; // Replace with your implementation
-  };
+    // Replace with your implementation
   
   /**
    * 5. Reduce
@@ -88,10 +107,11 @@ const analyticsData = [
    * @returns {number} Sum of all totalSessions
    */
   const getTotalSessions = (data) => {
+    return data.reduce((total, user) => total + user.totalSessions, 0);
+  };
     // TODO: use reduce
     // Hint: Accumulate user.totalSessions
-    return 0; // Replace with your implementation
-  };
+    // Replace with your implementation
   
   // ========================================
   // UI Functions (Already implemented)
